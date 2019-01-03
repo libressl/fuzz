@@ -26,7 +26,6 @@
 #include <openssl/rsa.h>
 #include <openssl/ts.h>
 #include <openssl/x509v3.h>
-#include <openssl/cms.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
 #include <openssl/bio.h>
@@ -78,22 +77,10 @@ static ASN1_ITEM_EXP *item_type[] = {
     ASN1_ITEM_ref(BIGNUM),
     ASN1_ITEM_ref(CBIGNUM),
     ASN1_ITEM_ref(CERTIFICATEPOLICIES),
-#ifndef OPENSSL_NO_CMS
-    ASN1_ITEM_ref(CMS_ContentInfo),
-    ASN1_ITEM_ref(CMS_ReceiptRequest),
-    ASN1_ITEM_ref(CRL_DIST_POINTS),
-#endif
-#ifndef OPENSSL_NO_DH
-    ASN1_ITEM_ref(DHparams),
-#endif
     ASN1_ITEM_ref(DIRECTORYSTRING),
     ASN1_ITEM_ref(DISPLAYTEXT),
     ASN1_ITEM_ref(DIST_POINT),
     ASN1_ITEM_ref(DIST_POINT_NAME),
-#ifndef OPENSSL_NO_EC
-    ASN1_ITEM_ref(ECPARAMETERS),
-    ASN1_ITEM_ref(ECPKPARAMETERS),
-#endif
     ASN1_ITEM_ref(EDIPARTYNAME),
     ASN1_ITEM_ref(EXTENDED_KEY_USAGE),
     ASN1_ITEM_ref(GENERAL_NAME),
@@ -162,7 +149,6 @@ static ASN1_ITEM_EXP *item_type[] = {
     ASN1_ITEM_ref(POLICYQUALINFO),
     ASN1_ITEM_ref(PROXY_CERT_INFO_EXTENSION),
     ASN1_ITEM_ref(PROXY_POLICY),
-    ASN1_ITEM_ref(RSA_OAEP_PARAMS),
     ASN1_ITEM_ref(RSAPrivateKey),
     ASN1_ITEM_ref(RSA_PSS_PARAMS),
     ASN1_ITEM_ref(RSAPublicKey),
@@ -190,14 +176,6 @@ static ASN1_ITEM_EXP *item_type[] = {
 #if !OPENSSL_API_3
     ASN1_ITEM_ref(ZLONG),
 #endif
-    ASN1_ITEM_ref(INT32),
-    ASN1_ITEM_ref(ZINT32),
-    ASN1_ITEM_ref(UINT32),
-    ASN1_ITEM_ref(ZUINT32),
-    ASN1_ITEM_ref(INT64),
-    ASN1_ITEM_ref(ZINT64),
-    ASN1_ITEM_ref(UINT64),
-    ASN1_ITEM_ref(ZUINT64),
     NULL
 };
 
@@ -320,10 +298,6 @@ int FuzzerTestOneInput(const uint8_t *buf, size_t len)
     DO_TEST_NO_PRINT(ESS_ISSUER_SERIAL, d2i_ESS_ISSUER_SERIAL, i2d_ESS_ISSUER_SERIAL);
     DO_TEST_NO_PRINT(ESS_CERT_ID, d2i_ESS_CERT_ID, i2d_ESS_CERT_ID);
     DO_TEST_NO_PRINT(ESS_SIGNING_CERT, d2i_ESS_SIGNING_CERT, i2d_ESS_SIGNING_CERT);
-#endif
-#ifndef OPENSSL_NO_DH
-    DO_TEST(DH, d2i_DHparams, i2d_DHparams, DHparams_print);
-    DO_TEST(DH, d2i_DHxparams, i2d_DHxparams, DHparams_print);
 #endif
 #ifndef OPENSSL_NO_DSA
     DO_TEST_NO_PRINT(DSA_SIG, d2i_DSA_SIG, i2d_DSA_SIG);
