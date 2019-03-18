@@ -501,6 +501,8 @@ int FuzzerInitialize(int *argc, char ***argv)
     return 1;
 }
 
+#define OPENSSL_NO_DSA 1
+
 int FuzzerTestOneInput(const uint8_t *buf, size_t len)
 {
     SSL *server;
@@ -534,7 +536,7 @@ int FuzzerTestOneInput(const uint8_t *buf, size_t len)
 
     ret = SSL_CTX_set_min_proto_version(ctx, 0);
     OPENSSL_assert(ret == 1);
-    ret = SSL_CTX_set_cipher_list(ctx, "ALL:eNULL:@SECLEVEL=0");
+    ret = SSL_CTX_set_cipher_list(ctx, "ALL:eNULL");
     OPENSSL_assert(ret == 1);
 
     /* RSA */
