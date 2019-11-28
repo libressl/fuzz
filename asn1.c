@@ -77,11 +77,13 @@ static ASN1_ITEM_EXP *item_type[] = {
     ASN1_ITEM_ref(BIGNUM),
     ASN1_ITEM_ref(CBIGNUM),
     ASN1_ITEM_ref(CERTIFICATEPOLICIES),
-#ifndef OPENSSL_NO_CMS                                                                                         
-    ASN1_ITEM_ref(CMS_ContentInfo),                                                                            
-    ASN1_ITEM_ref(CMS_ReceiptRequest),                                                                         
-    ASN1_ITEM_ref(CRL_DIST_POINTS),                                                                            
+/*
+#ifndef OPENSSL_NO_CMS
+    ASN1_ITEM_ref(CMS_ContentInfo),
+    ASN1_ITEM_ref(CMS_ReceiptRequest),
+    ASN1_ITEM_ref(CRL_DIST_POINTS),
 #endif
+*/
     ASN1_ITEM_ref(DIRECTORYSTRING),
     ASN1_ITEM_ref(DISPLAYTEXT),
     ASN1_ITEM_ref(DIST_POINT),
