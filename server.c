@@ -491,7 +491,6 @@ int FuzzerInitialize(int *argc, char ***argv)
 
     OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CRYPTO_STRINGS | OPENSSL_INIT_ASYNC, NULL);
     OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS, NULL);
-    ERR_get_state();
     idx = SSL_get_ex_data_X509_STORE_CTX_idx();
     FuzzerSetRand();
     comp_methods = SSL_COMP_get_compression_methods();
