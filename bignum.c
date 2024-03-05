@@ -18,6 +18,8 @@
 #include <openssl/err.h>
 #include "fuzzer.h"
 
+int BN_mod_exp_simple(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+    const BIGNUM *m, BN_CTX *ctx);
 
 int FuzzerInitialize(int *argc, char ***argv)
 {
